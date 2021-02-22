@@ -1,0 +1,169 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        @media screen and (max-width: 599px) {
+            .dropbox {
+                margin-left: 20px;
+            }
+            .dropbox h1 {
+                margin-top: 20px;
+                margin-right: 20px;
+                margin-bottom: 20px;
+                padding: 10px;
+                background-color: #53868b;
+            }
+        }
+        
+        @media screen and (min-width: 600px) {
+            .dropbox {
+                margin-left: 275px;
+            }
+            .dropbox h1 {
+                margin-top: 20px;
+                margin-right: 20px;
+                padding: 10px;
+                background-color: #53868b;
+            }
+            .flex-container {
+                display: flex;
+                flex-wrap: nowrap;
+            }
+            .flex-container>div {
+                width: 300px;
+                margin: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="navbar">
+
+        <a href="#" class="logo"><img src={% static 'images/bsnl.jpg' %} alt=""> <span class="bsnl"> BSNL </span> </a>
+
+        <div class="btn">
+            <span> <i class="fa fa-bars"></i> </span>
+        </div>
+
+        <div class="left" style="float: right;">
+
+            <a href="#"> <i class="fa fa-list"></i> <span>Launchpad</span> </a>
+
+            <div class="dropdown">
+                <button class="dropbtn">
+                     <i class="fa fa-user"></i> <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fa fa-user"></i> User Profile</a>
+                    <a href="#" class="logout"><i class="fa fa-sign-out"></i> Logout</a>
+                </div>
+            </div>
+
+            <a href="#"> ESD-1,2,3 & 4 </a>
+
+            <img class="tsecl" src={% static 'images/tsecl_logo.jpg' %} alt="tsecl_logo">
+
+        </div>
+
+    </div>
+
+    <nav class="sidebar">
+        <ul>
+
+            <li class="active"><a href="#"><i class="fa fa-tachometer-alt"></i> Dashboard</a></li>
+
+            <li>
+                <a href="#" class="ai-btn"><i class="fa fa-history"></i> AI <span class="fa fa-caret-down first"></span> </a>
+                <ul class="ai-show">
+                    <li><a href="#">Forecasting</a></li>
+                    <li><a href="#">Fault Prediction</a></li>
+                    <li><a href="#">Data Analysis</a></li>
+                </ul>
+            </li>
+
+
+        </ul>
+    </nav>
+
+    <div class="content">
+        <div class="header">
+
+        </div>
+    </div>
+
+    <div class="dropbox">
+        <h1>Forecasting</h1>
+        <form action="#">
+
+            <div class="flex-container">
+                <div>
+                    <label for="device" style="float:left">Select Device:</label><br>
+                    <select name="cars" id="cars" style="width: 250px;">
+            <option value="volvo">--Select Device--</option>
+            <option value="saab">1</option>
+            <option value="opel">2</option>
+            <option value="audi">3</option>
+          </select>
+                </div>
+                <div>
+
+                    <label for="package" style="float:left">Select Packet Type:</label><br>
+                    <select name="cars" id="cars" style="width: 250px;">
+            <option value="volvo">--Select Packet Type--</option>
+            <option value="saab">1</option>
+            <option value="opel">2</option>
+            <option value="audi">3</option>
+          </select>
+                </div>
+                <div>
+                    <label for="parameter" style="float:left">Select Parameter:</label><br>
+                    <select name="cars" id="cars" style="width: 250px;">
+            <option value="volvo">--Select Parameter--</option>
+            <option value="saab">1</option>
+            <option value="opel">2</option>
+            <option value="audi">3</option>
+          </select>
+                </div>
+                <div>
+                    <br>
+                    <input type="submit" value="Submit" style="float:left">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        $('.btn').click(function() {
+            $(this).toggleClass("click");
+            $('.sidebar').toggleClass("show");
+        });
+        $('.ai-btn').click(function() {
+            $('nav ul .ai-show').toggleClass("show1");
+            $('nav ul .first').toggleClass("rotate");
+        });
+        $('nav ul li').click(function() {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    </script>
+
+</body>
+
+</html>

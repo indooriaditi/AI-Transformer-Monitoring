@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body%}
+
+
+<br>
+<br>
+<br>
+<br>
+<div class="card border-dark mb3" >
+	<div class="card-header" style="background-color:black"><h1 style="color:white;text-align:center">AI Grid Monitoring</h1></div>
+      <br>
+      <button type="button" class="btn btn-danger" style="position: absolute;left:10px;top: 100px;"><a href="http://182.18.164.19:3390"></a>Back To Dashboard</button>
+      <br>
+      <div class="row">  
+      <div style="width: 800px;float: left;">
+      {{dat | safe}}
+</div>
+<div style="margin: auto;
+width: 100%;
+padding: 30px;" >
+      {{graph_div|safe}}
+      {{graph_div1|safe}}
+      {{graph_div2|safe}}
+      {{graph_div3|safe}}
+      {{graph_div4|safe}}
+      {{graph_div5|safe}}
+      {{graph_div6|safe}}
+      {{graph_div7|safe}}
+      {{graph_div8|safe}}
+      {{graph_div9|safe}}
+      {{graph_div10|safe}}
+      {{graph_div11|safe}}
+      {{fault_div|safe}}
+      {{fault_div1|safe}}
+      {{fault_div2|safe}}
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}
+
