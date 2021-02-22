@@ -924,4 +924,346 @@ def fault_view(request):
                    'graph_div9': graph_div9, 'graph_div10': graph_div10, 'graph_div11': graph_div11})
 
 def file(request):
-    return render(request,'nav.html')
+    plot_data = [
+        go.Scatter(
+            x=original1_inut.index,
+            y=original1_inut['INUT'],
+            name='INUT'
+        ),
+        go.Scatter(
+            x=prd_inut.index,
+            y=prd_inut[0],
+            name='Predicted'
+        ),
+        go.Scatter(
+            x=ub_inut.index,
+            y=ub_inut[0],
+            name='Upper Bound'
+        ),
+        go.Scatter(
+            x=trn_inut.index,
+            y=trn_inut[0],
+            name='Training'
+        ),
+        go.Scatter(
+            x=lb_inut.index,
+            y=lb_inut[0],
+            name='Lower Bound'
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='INUT, rmse=' + str(rmse_inut) + ', ' + s_inut,
+        yaxis_title='INUT',
+        xaxis_title='Time'
+    )
+    fig = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div = pyoff.plot(fig, auto_open=False, output_type="div")
+
+    plot_data = [
+        go.Scatter(
+            x=cv['DeviceTimeStamp'],
+            y=cv['INUT'],
+            name='INUT'
+        ),
+        go.Scatter(
+            x=cv_inut_high['DeviceTimeStamp'],
+            y=cv_inut_high['INUT'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='INUT (All time), Alarm count = ' + str(total_inut_high)
+    )
+    fig2 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div2 = pyoff.plot(fig2, auto_open=False, output_type="div")
+    plot_data = [
+        go.Scatter(
+            x=inutnxtweek['DeviceTimeStamp'],
+            y=inutnxtweek['INUT'],
+            name='INUT'
+        ),
+        go.Scatter(
+            x=inutnxtweek_high['DeviceTimeStamp'],
+            y=inutnxtweek_high['INUT'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='INUT (All time), Alarm count last week = ' + str(total_inutnxtwk_high)
+    )
+    fig1 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div1 = pyoff.plot(fig1, auto_open=False, output_type="div")
+    plot_data = [
+        go.Scatter(
+            x=cv['DeviceTimeStamp'],
+            y=cv['IL1'],
+            name='IL1'
+        ),
+        go.Scatter(
+            x=cv_il1_high['DeviceTimeStamp'],
+            y=cv_il1_high['IL1'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL1 (All time), Alarm count = ' + str(total_il1_high)
+    )
+    fig3 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div3 = pyoff.plot(fig3, auto_open=False, output_type="div")
+    plot_data = [
+        go.Scatter(
+            x=il1nxtweek['DeviceTimeStamp'],
+            y=il1nxtweek['IL1'],
+            name='IL1'
+        ),
+        go.Scatter(
+            x=il1nxtweek_high['DeviceTimeStamp'],
+            y=il1nxtweek_high['IL1'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL1 (All time), Alarm count last week = ' + str(total_il1nxtwk_high)
+    )
+    fig4 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div4 = pyoff.plot(fig4, auto_open=False, output_type="div")
+    plot_data = [
+        go.Scatter(
+            x=original1_il1.index,
+            y=original1_il1['IL1'],
+            name='IL1'
+        ),
+        go.Scatter(
+            x=prd_il1.index,
+            y=prd_il1[0],
+            name='Predicted'
+        ),
+        go.Scatter(
+            x=ub_il1.index,
+            y=ub_il1[0],
+            name='Upper Bound'
+        ),
+        go.Scatter(
+            x=trn_il1.index,
+            y=trn_il1[0],
+            name='Training'
+        ),
+        go.Scatter(
+            x=lb_il1.index,
+            y=lb_il1[0],
+            name='Lower Bound'
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='Load, rmse=' + str(rmse_il1) + ', ' + s_il1,
+        yaxis_title='IL1',
+        xaxis_title='Time'
+    )
+    fig5 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div5 = pyoff.plot(fig5, auto_open=False, output_type="div")
+
+    plot_data = [
+        go.Scatter(
+            x=cv['DeviceTimeStamp'],
+            y=cv['IL2'],
+            name='IL2'
+        ),
+        go.Scatter(
+            x=cv_il2_high['DeviceTimeStamp'],
+            y=cv_il2_high['IL2'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL2 (All time), Alarm count = ' + str(total_il2_high)
+    )
+    fig6 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div6 = pyoff.plot(fig6, auto_open=False, output_type="div")
+
+    plot_data = [
+        go.Scatter(
+            x=il2nxtweek['DeviceTimeStamp'],
+            y=il2nxtweek['IL2'],
+            name='IL2'
+        ),
+        go.Scatter(
+            x=il2nxtweek_high['DeviceTimeStamp'],
+            y=il2nxtweek_high['IL2'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL2 (All time), Alarm count last week = ' + str(total_il2nxtwk_high)
+    )
+    fig7 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div7 = pyoff.plot(fig7, auto_open=False, output_type="div")
+    plot_data = [
+        go.Scatter(
+            x=original1_il2.index,
+            y=original1_il2['IL2'],
+            name='IL2'
+        ),
+        go.Scatter(
+            x=prd_il2.index,
+            y=prd_il2[0],
+            name='Predicted'
+        ),
+        go.Scatter(
+            x=ub_il2.index,
+            y=ub_il2[0],
+            name='Upper Bound'
+        ),
+        go.Scatter(
+            x=trn_il2.index,
+            y=trn_il2[0],
+            name='Training'
+        ),
+        go.Scatter(
+            x=lb_il2.index,
+            y=lb_il2[0],
+            name='Lower Bound'
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL2, rmse=' + str(rmse_il2) + ', ' + s_il2,
+        yaxis_title='IL2',
+        xaxis_title='Time'
+    )
+    fig8 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div8 = pyoff.plot(fig8, auto_open=False, output_type="div")
+
+    plot_data = [
+        go.Scatter(
+            x=cv['DeviceTimeStamp'],
+            y=cv['IL3'],
+            name='IL3'
+        ),
+        go.Scatter(
+            x=cv_il3_high['DeviceTimeStamp'],
+            y=cv_il3_high['IL3'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL3 (All time), Alarm count = ' + str(total_il3_high)
+    )
+    fig9 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div9 = pyoff.plot(fig9, auto_open=False, output_type="div")
+    plot_data = [
+        go.Scatter(
+            x=il3nxtweek['DeviceTimeStamp'],
+            y=il3nxtweek['IL3'],
+            name='IL3'
+        ),
+        go.Scatter(
+            x=il3nxtweek_high['DeviceTimeStamp'],
+            y=il3nxtweek_high['IL3'],
+            mode='markers',
+            name='Alarm',
+            marker=dict(size=7,
+                        line=dict(width=1),
+                        color='red',
+                        opacity=0.8
+                        )
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL3 (Last Week), Alarm count last week = ' + str(total_il3nxtwk_high)
+    )
+    fig10 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div10 = pyoff.plot(fig10, auto_open=False, output_type="div")
+
+    plot_data = [
+        go.Scatter(
+            x=original1_il3.index,
+            y=original1_il3['IL3'],
+            name='IL3'
+        ),
+        go.Scatter(
+            x=prd_il3.index,
+            y=prd_il3[0],
+            name='Predicted'
+        ),
+        go.Scatter(
+            x=ub_il3.index,
+            y=ub_il3[0],
+            name='Upper Bound'
+        ),
+        go.Scatter(
+            x=trn_il3.index,
+            y=trn_il3[0],
+            name='Training'
+        ),
+        go.Scatter(
+            x=lb_il3.index,
+            y=lb_il3[0],
+            name='Lower Bound'
+        )
+
+    ]
+    plot_layout = go.Layout(
+        title='IL3, rmse=' + str(rmse_il3) + ', ' + s_il3,
+        yaxis_title='IL3',
+        xaxis_title='Time'
+    )
+    fig11 = go.Figure(data=plot_data, layout=plot_layout)
+    graph_div11 = pyoff.plot(fig11, auto_open=False, output_type="div")
+
+    return render(request, 'nav.html',
+                  {'graph_div': graph_div, 'graph_div1': graph_div1, 'graph_div2': graph_div2,
+                   'graph_div3': graph_div3, 'graph_div4': graph_div4, 'graph_div5': graph_div5,
+                   'graph_div6': graph_div6, 'graph_div7': graph_div7, 'graph_div8': graph_div8,
+                   'graph_div9': graph_div9, 'graph_div10': graph_div10, 'graph_div11': graph_div11})
