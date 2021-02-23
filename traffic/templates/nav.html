@@ -148,12 +148,12 @@
                 </div>
                 <div>
                     <br>
-                    <input type="submit" value="Submit" style="float:left">
+                    <input id="SUB" type="submit" value="Submit" style="float:left">
                 </div>
             </div>
-            <div class="graphs" style="margin: auto;
+            <div id="graphs" style="margin: auto;
             padding: 30px;">
-
+                {{graph_div|safe}}
             </div>
         </form>
 
@@ -171,8 +171,8 @@
         $('nav ul li').click(function() {
             $(this).addClass("active").siblings().removeClass("active");
         });
-        $(':submit').click(function() {
-            $('graphs').html("{{graph_div|safe}}"); 
+        $('#SUB').click(function(){
+            $('#graphs').toggle();
         });
     </script>
 
