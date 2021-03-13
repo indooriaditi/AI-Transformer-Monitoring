@@ -181,17 +181,17 @@ def forecasting(request):
             go.Scatter(
                 x=future_time_stamps,
                 y=fcast1,
-                name='Forecast'
+                name='Forecast(alpha=0.2)'
             ),
             go.Scatter(
                 x=future_time_stamps,
                 y=fcast2,
-                name='Forecast'
+                name='Forecast(alpha=0.6)'
             ),
             go.Scatter(
                 x=future_time_stamps,
                 y=fcast3,
-                name='Forecast'
+                name='Forecast(optimized)'
             )
                 
         ]
