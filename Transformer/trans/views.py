@@ -25,7 +25,7 @@ from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
 import plotly.figure_factory as ff
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 # Create your views here.
-def fault(request):
+def fault1(request):
     url="http://182.18.164.20/transformer_api/overview_locations"
     response1=requests.get(url)
     res=response1.json()
@@ -162,7 +162,7 @@ def fault(request):
         break
     data={'loc':loc,'imei':imei,'msgovf':msgovf,'msgpff':msgpff,'msgfrqf':msgfrqf}
     return render(request,'menu/fault.html',{'data':data,'loc':loc,'imei':imei,'msgovf':msgovf,'msgpff':msgpff,'msgfrqf':msgfrqf}) 
-def fault1(request):
+def fault(request):
     imei=request.GET.get('imei')
     pack=request.GET.get('packettype')
     aid=request.GET.get('parameter')
