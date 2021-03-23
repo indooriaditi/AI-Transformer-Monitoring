@@ -18,12 +18,12 @@
 
         <div class="flex-container">
             <div>
-                <label for="device" style="float:left;">Select Device:</label><br>
+                <label for="device" style="float:left;">Select Location:</label><br>
                 <select name="imei" id="imei" style="width: 250px; ">
                     {%if location%}
                     <option value={{imei}}>{{location}}</option>
                     {%else%}
-                    <option value="sd">--Select Device--</option>
+                    <option value="sd">--Select Location--</option>
                     {%endif%}
         {% for i in devices %}
         <option value={{i.DeviceImei}}>{{i.location}}</option>
@@ -32,12 +32,12 @@
             </div>
             <div>
 
-                <label for="package" style="float:left;">Select Packet Type:</label><br>
+                <label for="package" style="float:left;">Select Category:</label><br>
                 <select name="packettype" id="packettype" style="width: 250px; ">
                     {%if pack%}
                   <option value={{pack}}>{{pack}}</option>
                   {%else%}
-        <option value="pt">--Select Packet Type--</option>
+        <option value="pt">--Select Category--</option>
         {%endif%}
         <option value="current_voltage">Current and Voltage</option>
         <option value="overview">Overview</option>
@@ -57,19 +57,26 @@
 
     </form>
     <br><br>
-    {%if imei%}
-    {%if pack%}
-    <span style="padding-left: 75px; font: size 15px;">IMEI: {{imei}} , Packet Type: {{pack}}</span>
-    {%endif%}
-    {%endif%}
+    {%if imei and pack%}
+  
+    <span style="padding-left: 75px; font: size 15px;color: white;">IMEI: {{imei}} , Packet Type: {{pack}}</span>
     {{graph_div1|safe}}
     {{graph_div2|safe}}
     {{graph_div3|safe}}
     {{graph_div4|safe}}
     {{graph_div5|safe}}
     {{graph_div6|safe}}
+    {%else%}
+    <img src="{% static 'images/bsnl1.jpeg' %}" alt="" style="padding-left: 100px; " >
+    {%endif%}
+
     
 </div>
+<style>
+  label {
+color: white;
+}
+</style>
 
 <script type="text/javascript">
     function myFunction(){

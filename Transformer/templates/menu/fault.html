@@ -3,18 +3,18 @@
 {%block content%}
 
 <div class="dropbox">
-    <h3>Fault Prediction</h3>
+    <h3>Fault Detection</h3>
     <form>
 
         <div class="flex-container">
             <div>
-                <label for="device" style="float:left; ;">Select Device:</label><br>
+                <label for="device" style="float:left; ;">Select Location:</label><br>
                 <select name="imei" id="imei" style="width: 250px;float: left;">
 
                 {%if location%}
                 <option value={{imei}}>{{location}}</option>
                 {%else%}
-                <option value="sd">--Select Device--</option>
+                <option value="sd">--Select Location--</option>
                 {%endif%}
         {% for i in devices %}
         <option value={{i.DeviceImei}}>{{i.location}}</option>
@@ -23,12 +23,12 @@
             </div>
             <div>
 
-                <label for="package" style="float:left">Select Packet Type:</label><br>
+                <label for="package" style="float:left">Select Category:</label><br>
                 <select name="packettype" id="packettype" style="width: 250px;float: left;">
                   {%if pack%}
                   <option value={{pack}}>{{pack}}</option>
                   {%else%}
-        <option value="pt">--Select Packet Type--</option>
+        <option value="pt">--Select Category--</option>
         {%endif%}
       </select>
             </div>
@@ -52,9 +52,21 @@
         </div>
 
     </form>
+    {%if imei and pack%}
     {{graph_div1|safe}}
 
+    {%else%}
+    <br>
+    <img src="{% static 'images/bsnl1.jpeg' %}" alt="" style="padding-left: 100px; " >
+    {%endif%}
+
+
 </div>
+<style>
+  label {
+color: white;
+}
+</style>
 <script type="text/javascript">
   function myFunction(){
     imei=document.getElementById('imei');
@@ -103,5 +115,29 @@
 
 </script>
 
-
+<!--
+<h1 style="color: white;padding-left: 200px;">hi</h1>
+{%if imei%}
+<br>
+<div style="background-color:red;color:white;padding-left:100px;">
+  hi
+  <h2>{{loc}}</h2>
+  <h2>IMEI: {{imei}}</h2>
+  <p>Overview Fault Message: {{msgovf}}</p>
+  <p>FRQ Fault Message: {{msgfrqf}}</p>
+  <p>PF Fault Message: {{msgpff}}</p>
+</div>
+{%endif%}
+{%for i in data%}
+<br>
+<div style="background-color:red;color:white;padding-left:100px;">
+  hi
+  <h2>{{i.loc}}</h2>
+  <h2>IMEI: {{i.imei}}</h2>
+  <p>Overview Fault Message: {{i.msgovf}}</p>
+  <p>FRQ Fault Message: {{i.msgfrqf}}</p>
+  <p>PF Fault Message: {{i.msgpff}}</p>
+</div>
+{%endfor%}
+-->
 {% endblock %}

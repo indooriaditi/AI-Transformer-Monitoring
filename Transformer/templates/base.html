@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <style>
 
+
         nav ul li.inactive {
             color: white;
             background: #53868b;
@@ -368,6 +369,9 @@
         position: relative;
         margin-top: 100px;
     }
+    body {
+            background-color: #0f0f0f;
+        }
     
     </style>
 
@@ -405,7 +409,7 @@
                 <a href="" class="ai-btn"><i class="fa fa-history"></i> AI <span class="fa fa-caret-down first"></span> </a>
                 <ul class="ai-show">
                     <li><a href="{% url 'forecasting' %}">Forecasting</a></li>
-                    <li><a href="{% url 'fault' %}">Fault Prediction</a></li>
+                    <li><a href="{% url 'fault' %}">Fault Detection</a></li>
                     <li><a href="">Data Analysis <span class="fa fa-angle-down first"></span></a></li>
                     <li><a href="{% url 'dataanalysis1' %}">Heat Map</a></li>
                     <li><a href="{% url 'dataanalysis2' %}">Graphs</a></li>

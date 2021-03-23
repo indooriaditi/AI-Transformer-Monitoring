@@ -8,9 +8,9 @@
 
         <div class="flex-container">
             <div>
-                <label for="device" style="float:left">Select Device:</label><br>
+                <label for="device" style="float:left;color: white;">Select Location:</label><br>
                 <select name="imei" id="imei" style="width: 250px;">
-        <option value="None">--Select Device--</option>
+        <option value="None">--Select Location--</option>
         {% for i in devices %}
         <option value={{i.DeviceImei}}>{{i.location}}</option>
         {% endfor %}
@@ -18,9 +18,9 @@
             </div>
             <div>
 
-                <label for="package" style="float:left">Select Packet Type:</label><br>
+                <label for="package" style="float:left">Select Category:</label><br>
                 <select name="packettype" id="packettype" style="width: 250px;">
-        <option value="">--Select Packet Type--</option>
+        <option value="">--Select Category--</option>
         <option value="Total_Power">Total_Power</option>
         <option value="overview">overview</option>
       </select>
@@ -33,14 +33,21 @@
         </div>
 
     </form>
-    {%if imei%}
-    {%if pack%}
+    {%if imei and pack%}
     <span style="padding-left: 75px; font: size 15px;">IMEI: {{imei}} , Packet Type: {{pack}}</span>
-    {%endif%}
-    {%endif%}
     {{graph_d|safe}}
+    {%else%}
+    <br>
+    <img src="{% static 'images/bsnl1.jpeg' %}" alt="" style="padding-left: 100px; " >
+
+    {%endif%}
+
 
 </div>
 
-
+<style>
+            label {
+        color: white;
+    }
+</style>
 {% endblock %}
