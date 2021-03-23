@@ -547,7 +547,10 @@ def forecasting(request):
                 test = df.iloc[len(df)-24:] 
                 from statsmodels.tsa.statespace.sarimax import SARIMAX 
                 
-                model = SARIMAX(train[aid], order = (2, 0, 0), seasonal_order =(2, 1, 0, 24)) 
+                if(aid in ['IL1','IL2','IL3']):
+                        model = SARIMAX(train[aid], order = (3, 0, 1), seasonal_order =(0, 1, 2, 24)) 
+                elif(aid in ['VL1','VL2','VL3']):
+                        model = SARIMAX(train['VL1'], order = (2, 0, 0), seasonal_order =(2, 1, 0, 24))
                 
                 result = model.fit() 
                 result.summary() 
@@ -566,8 +569,10 @@ def forecasting(request):
                 print('Test MSE: %.3f' % error)
                 rmse_inut = np.sqrt(mean_squared_error(test[aid], predictions))
                 print('Test RMSE: %.3f' % rmse_inut)
-                # Train the model on the full dataset 
-                model = SARIMAX(df[aid],order = (3, 0, 0),seasonal_order =(2, 1, 0, 24)) 
+                if(aid in ['IL1','IL2','IL3']):
+                        model = SARIMAX(df[aid],order = (3, 0, 1),seasonal_order =(0, 1, 2, 24)) 
+                elif(aid in ['VL1','VL2','VL3']):
+                        model = SARIMAX(train['VL1'], order = (2, 0, 0), seasonal_order =(2, 1, 0, 24))
                 result = model.fit() 
                 
                 # Forecast for the next 3 years 
@@ -592,6 +597,14 @@ def forecasting(request):
                     msg = 'Fault may occur '+str(len(fault_query_future))+' times in the next 24 hours'
                 else:
                     msg = 'Fault may not occur in the next 24 hours'
+                 if(aid in ['VL1','VL2','VL3']):
+                        print("true")
+                        fault_query = df.loc[(df['VL1']>264)|(df['VL1']<195.5)]
+                        
+                        if(len(fault_query_future)>0):
+                            msg = 'Fault may occur '+str(len(fault_query_future))+' times in the next 24 hours'
+                        else:
+                            msg = 'Fault may not occur in the next 24 hours'
                 import plotly.graph_objs as go
                 plot_data = [
                     go.Scatter(
@@ -742,10 +755,7 @@ def forecasting(request):
                     test = df.iloc[len(df)-24:] 
                     # Fit a SARIMAX(3, 0, 0)x(2, 1, 0, 100) on the training set 
                     from statsmodels.tsa.statespace.sarimax import SARIMAX
-                    if(aid in ['IL1','IL2','IL3']):
-                        model = SARIMAX(train[aid], order = (3, 0, 1), seasonal_order =(0, 1, 2, 24)) 
-                    elif(aid in ['VL1','VL2','VL3']):
-                        model = SARIMAX(train['VL1'], order = (2, 0, 0), seasonal_order =(2, 1, 0, 24))
+                    model = SARIMAX(train[aid], order = (0, 0, 1), seasonal_order =(2, 1, 2, 24))
                     
                     result = model.fit() 
                     result.summary() 
@@ -765,10 +775,7 @@ def forecasting(request):
                     rmse_inut = np.sqrt(mean_squared_error(test[aid], predictions))
                     print('Test RMSE: %.3f' % rmse_inut)
                     # Train the model on the full dataset 
-                    if(aid in ['IL1','IL2','IL3']):
-                        model = SARIMAX(df[aid],order = (3, 0, 1),seasonal_order =(0, 1, 2, 24)) 
-                    elif(aid in ['VL1','VL2','VL3']):
-                        model = SARIMAX(train['VL1'], order = (2, 0, 0), seasonal_order =(2, 1, 0, 24))
+                    model = SARIMAX(train[aid], order = (0, 0, 1), seasonal_order =(2, 1, 2, 24))
                     result = model.fit() 
                     
                     # Forecast for the next 3 years 
@@ -787,14 +794,7 @@ def forecasting(request):
                     future_time_stamps
                     msg=''
                     fc['hours_'] = np.array(future_time_stamps)
-                    if(aid in ['VL1','VL2','VL3']):
-                        print("true")
-                        fault_query = df.loc[(df['VL1']>264)|(df['VL1']<195.5)]
-                        
-                        if(len(fault_query_future)>0):
-                            msg = 'Fault may occur '+str(len(fault_query_future))+' times in the next 24 hours'
-                        else:
-                            msg = 'Fault may not occur in the next 24 hours'
+                   
                     import plotly.graph_objs as go
                     plot_data = [
                         go.Scatter(
