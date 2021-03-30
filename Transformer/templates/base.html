@@ -380,7 +380,7 @@
 <body>
     <div class="navbar">
 
-        <a href="#" class="logo"><img src="{% static 'images/bsnl.jpg' %}" alt=""> <span class="bsnl"> BSNL </span> </a>
+        <a href="http://182.18.164.20/transformer" class="logo"><img src="{% static 'images/bsnl.jpg' %}" alt=""> <span class="bsnl"> BSNL </span> </a>
 
         <div class="btn">
             <span> <i class="fa fa-bars"></i> </span>
@@ -390,7 +390,7 @@
 
             
 
-            <img class="tsecl" src="{% static 'images/tsecl_logo.jpg' %}" alt="tsecl_logo">
+            <a href="http://182.18.164.20/transformer"> <img class="tsecl" src="{% static 'images/tsecl_logo.jpg' %}" alt="tsecl_logo"></a>
 
         </div>
 
@@ -440,7 +440,7 @@
                     <li {% if 'fault' in request.path %} class="sub-active"  {% endif %}><a href="{% url 'fault' %}">Fault Prediction</a></li>
                     <li><a href="">Data Analysis <span class="fa fa-angle-down first"></span></a></li>
                     <li {% if 'dataanalysis1' in request.path %} class="sub-active"  {% endif %}><a href="{% url 'dataanalysis1' %}">Heat Map</a></li>
-                    <li {% if 'dataanalysis2' in request.path %} class="sub-active"  {% endif %} ><a href="{% url 'dataanalysis2' %}">Graphs</a></li>
+                  <!--  <li {% if 'dataanalysis2' in request.path %} class="sub-active"  {% endif %} ><a href="{% url 'dataanalysis2' %}">Graphs</a></li>-->
                 </ul>
             </li>
 

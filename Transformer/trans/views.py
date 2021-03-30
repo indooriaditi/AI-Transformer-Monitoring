@@ -25,7 +25,7 @@ from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
 import plotly.figure_factory as ff
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 # Create your views here.
-def fault1(request):
+def fault(request):
     url="http://182.18.164.20/transformer_api/overview_locations"
     response1=requests.get(url)
     res=response1.json()
@@ -162,7 +162,7 @@ def fault1(request):
         break
     data={'loc':loc,'imei':imei,'msgovf':msgovf,'msgpff':msgpff,'msgfrqf':msgfrqf}
     return render(request,'menu/fault.html',{'data':data,'loc':loc,'imei':imei,'msgovf':msgovf,'msgpff':msgpff,'msgfrqf':msgfrqf}) 
-def fault(request):
+def fault1(request):
     imei=request.GET.get('imei')
     pack=request.GET.get('packettype')
     aid=request.GET.get('parameter')
@@ -590,16 +590,21 @@ def forecasting(request):
                     future_time_stamps.append(ts)
                 future_time_stamps
                 fc['hours_'] = np.array(future_time_stamps)
-                fault_query = df[df[aid] > 180]
-                fault_query_future = fc[fc['Forecast'] > 180]
+                if(aid in ['IL1','IL2','IL3']):
+                    fault_query = df[df[aid] > 180]
+                    fault_query_future = fc[fc['Forecast'] > 180]
+                elif(aid in ['VL1','VL2','VL3']):
+                    print(True)
+                    fault_query=df.loc[(df[aid]>264)|(df[aid]<195.5)]
+                    fault_query_future =  fc.loc[(fc['Forecast']>264)|(fc['Forecast']<195.5)]
                 msg=''
                 if(len(fault_query_future)>0):
                     msg = 'Fault may occur '+str(len(fault_query_future))+' times in the next 24 hours'
                 else:
                     msg = 'Fault may not occur in the next 24 hours'
-                 if(aid in ['VL1','VL2','VL3']):
+                if(aid in ['VL1','VL2','VL3']):
                         print("true")
-                        fault_query = df.loc[(df['VL1']>264)|(df['VL1']<195.5)]
+                        fault_query = df.loc[(df[aid]>264)|(df[aid]<195.5)]
                         
                         if(len(fault_query_future)>0):
                             msg = 'Fault may occur '+str(len(fault_query_future))+' times in the next 24 hours'

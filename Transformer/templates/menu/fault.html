@@ -3,9 +3,9 @@
 {%block content%}
 
 <div class="dropbox">
-    <h3>Fault Detection</h3>
+    <h3>Fault Prediction</h3>
     <form>
-
+<!--
         <div class="flex-container">
             <div>
                 <label for="device" style="float:left; ;">Select Location:</label><br>
@@ -114,13 +114,12 @@ color: white;
     }
 
 </script>
+-->
 
-<!--
-<h1 style="color: white;padding-left: 200px;">hi</h1>
+
 {%if imei%}
 <br>
-<div style="background-color:red;color:white;padding-left:100px;">
-  hi
+<div style="background-color:white;color:black;padding-left:100px;">
   <h2>{{loc}}</h2>
   <h2>IMEI: {{imei}}</h2>
   <p>Overview Fault Message: {{msgovf}}</p>
@@ -128,16 +127,6 @@ color: white;
   <p>PF Fault Message: {{msgpff}}</p>
 </div>
 {%endif%}
-{%for i in data%}
-<br>
-<div style="background-color:red;color:white;padding-left:100px;">
-  hi
-  <h2>{{i.loc}}</h2>
-  <h2>IMEI: {{i.imei}}</h2>
-  <p>Overview Fault Message: {{i.msgovf}}</p>
-  <p>FRQ Fault Message: {{i.msgfrqf}}</p>
-  <p>PF Fault Message: {{i.msgpff}}</p>
-</div>
-{%endfor%}
--->
+
+
 {% endblock %}
