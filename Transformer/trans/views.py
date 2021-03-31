@@ -24,6 +24,7 @@ import os
 from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
 import plotly.figure_factory as ff
 from statsmodels.tsa.statespace.sarimax import SARIMAX
+import json
 # Create your views here.
 def fault(request):
     url="http://182.18.164.20/transformer_api/overview_locations"
@@ -276,6 +277,7 @@ def dashboard(request):
     tplastweek
     tplastweek=tplastweek.reset_index()
     tplastweek
+    tot_trans=len(tplastweek['DeviceImei'].value_counts())
     df=tplastweek.copy()
     days=[]
     for i in df['DeviceTimeStamp']:
@@ -313,6 +315,13 @@ def dashboard(request):
     print('Test RMSE: %.3f' % rmse_inut)
     model = SARIMAX(df['MPD'],order = (1, 1, 1),seasonal_order =(2, 1, 0, 30)) 
     result = model.fit() 
+    previous_forecasts = predictions.to_frame()
+    previous_forecasts['ActualMPD'] = test['MPD']*tot_trans
+    previous_forecasts['Predictions'] = previous_forecasts['Predictions']*tot_trans
+    print(previous_forecasts)
+    json_records = previous_forecasts.reset_index().to_json(orient ='records')
+    data = []
+    data = json.loads(json_records)
     
     # Forecast for the next 3 years 
     forecast = result.predict(start = len(df), end = (len(df)-1) + 10,typ = 'levels').rename('Forecast') 
@@ -324,6 +333,9 @@ def dashboard(request):
     df_hist
     fc = forecast.to_frame()
     fc
+
+    
+
     import datetime
     future_time_stamps=[]
     ts=df['days_'].max()
@@ -331,8 +343,12 @@ def dashboard(request):
         ts = ts + datetime.timedelta(days = 1)
         future_time_stamps.append(ts)
     future_time_stamps
-    fc['days_'] = np.array(future_time_stamps)
-    fc['Total demand'] = fc['Forecast']*52 
+    fc['days'] = np.array(future_time_stamps)
+    fc['Totaldemand'] = fc['Forecast']*tot_trans
+    print(fc)
+    json_records = fc.reset_index().to_json(orient ='records')
+    data1 = []
+    data1 = json.loads(json_records)
     plot_data = [
         go.Scatter(
             x=df['days_'],
@@ -340,13 +356,12 @@ def dashboard(request):
             name='Historical MPD'
         ),
         go.Scatter(
-            x=fc['days_'],
+            x=fc['days'],
             y=fc['Forecast'],
             name='Forecast'
         )
     ]
     plot_layout = go.Layout(
-            title='Total Average Demand',
             xaxis_title='Time',
             yaxis_title='MPD',
             plot_bgcolor='rgba(0,0,0,0)'
@@ -354,7 +369,7 @@ def dashboard(request):
     fig = go.Figure(data=plot_data, layout=plot_layout)
 
     graph_d = pyoff.plot(fig, auto_open=False, output_type="div")
-    return render(request,'menu/dashboard.html',{'graph':graph_d})
+    return render(request,'menu/dashboard.html',{'graph':graph_d,'d':data,'d1':data1})
 
 def forecasting(request):
     imei=request.GET.get('imei')

@@ -7,6 +7,76 @@
     <h1 style="color: white;">Dashboard    Max Power Demand</h1>
     
 </div>
+<style>
+#values tr:nth-child(even){background-color: grey;color: white;}
 
+#values tr:nth-child(odd) {background-color:black;color: white;}
+
+#values th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: grey;
+  color: white;
+}
+#values {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#values td, #values th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+table.center {
+  margin-left: auto; 
+  margin-right: auto;
+}
+</style>
 {{graph|safe}}
+<br>
+<div class="container">
+    <h2 class="text-center" style="color: white;padding-left: 550px;"><u>Previous Forecasts</u></h2><br>            
+    <table id="values" class="center">
+      <thead>
+        <tr>
+          <th>Predictions</th>
+          <th>Actual MPD</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if d %}  
+        {% for i in d %}
+          <tr>
+            <td>{{i.Predictions}}</td>
+            <td>{{i.ActualMPD}}</td>
+          </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <br>
+<div class="container">
+    <h2 class="text-center" style="color: white;padding-left: 550px;"><u>Total Demand</u></h2><br>            
+    <table id="values" class="center">
+      <thead>
+        <tr>
+          <th>Forecast</th>
+          <th>Total Demand</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if d1 %}  
+        {% for i in d1 %}
+          <tr>
+            <td>{{i.Forecast}}</td>
+            <td>{{i.Totaldemand}}</td>
+          </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+      </table>
+    </div>
 {% endblock %}
